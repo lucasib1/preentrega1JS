@@ -1,0 +1,76 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e0f7fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+h1 {
+    color: #195012;
+    margin-bottom: 50px; /* Incrementado para separar el h1 del resto */
+    font-size: 24px;
+}
+
+.container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px; /* Añadido para separar el contenedor del h1 */
+}
+
+input, select, button {
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #b0bec5;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #00796b;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #004d40;
+}
+
+.result {
+    margin-top: 25px;
+    font-size: 20px;
+    color: #00796b;
+}
+
+/* Media Queries para hacer el diseño responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+    input, select, button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .result {
+        font-size: 18px;
+    }
+}
