@@ -1,9 +1,10 @@
+
 const tasasDeCambio = {
     USD: 1,
     EUR: 0.85,
     GBP: 0.75,
     JPY: 110,
-    ARS: 98.50 // Tasa de cambio de ejemplo, actualízala según sea necesario
+    ARS: 98.50 // 
 };
 
 const convertidorDeMoneda = (cantidad, deMoneda, aMoneda) => {
