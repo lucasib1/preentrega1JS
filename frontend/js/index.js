@@ -20,8 +20,20 @@ const simularConversionDeMoneda = () => {
     // Ciclo para permitir múltiples conversiones
     while (true) {
         const cantidad = parseFloat(prompt("Ingrese la cantidad a convertir:"));
-        const deMoneda = prompt("Ingrese la moneda de origen (USD, EUR, GBP, JPY, ARS):").toUpperCase();
-        const aMoneda = prompt("Ingrese la moneda de destino (USD, EUR, GBP, JPY, ARS):").toUpperCase();
+        if (isNaN(cantidad)) {
+            alert("Por favor, ingrese una cantidad válida.");
+            continue;
+        }
+        const deMoneda = prompt("Ingrese la moneda de origen (USD, EUR, GBP, JPY, ARS):");
+        if (!deMoneda) {
+            alert("Por favor, ingrese una moneda de origen válida.");
+            continue;
+        }
+        const aMoneda = prompt("Ingrese la moneda de destino (USD, EUR, GBP, JPY, ARS):");
+        if (!aMoneda) {
+            alert("Por favor, ingrese una moneda de destino válida.");
+            continue;
+        }
 
         // Condicional para verificar si la cantidad es válida
         if (isNaN(cantidad) || cantidad <= 0) {
