@@ -1,12 +1,14 @@
 const tasasDeCambio = {
-    USD: 1,
-    EUR: 0.85,
-    GBP: 0.75,
-    JPY: 110,
-    ARS: 98.50
+    usd: 1,
+    eur: 0.85,
+    ars: 98.50,
 };
 
 const convertidorDeMoneda = (cantidad, deMoneda, aMoneda) => {
+    // Convertir las monedas a minúsculas
+    deMoneda = deMoneda.toLowerCase();
+    aMoneda = aMoneda.toLowerCase();
+
     // Condicional para verificar si las monedas son válidas
     if (!tasasDeCambio[deMoneda] || !tasasDeCambio[aMoneda]) {
         return "Moneda inválida";
@@ -24,12 +26,12 @@ const simularConversionDeMoneda = () => {
             alert("Por favor, ingrese una cantidad válida.");
             continue;
         }
-        const deMoneda = prompt("Ingrese la moneda de origen (USD, EUR, GBP, JPY, ARS):");
+        const deMoneda = prompt("Ingrese la moneda de origen (USD, EUR, ARS):");
         if (!deMoneda) {
             alert("Por favor, ingrese una moneda de origen válida.");
             continue;
         }
-        const aMoneda = prompt("Ingrese la moneda de destino (USD, EUR, GBP, JPY, ARS):");
+        const aMoneda = prompt("Ingrese la moneda de destino (USD, EUR, ARS):");
         if (!aMoneda) {
             alert("Por favor, ingrese una moneda de destino válida.");
             continue;
