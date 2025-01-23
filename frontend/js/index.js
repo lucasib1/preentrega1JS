@@ -55,3 +55,8 @@ const simularConversionDeMoneda = () => {
 };
 
 simularConversionDeMoneda();
+// Función para inicializar el simulador
+const iniciarSimulador = () => {
+    alert("Bienvenido al convertidor de moneda.");
+    simularConversionDeMoneda();
+};
