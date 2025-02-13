@@ -1,62 +1,73 @@
+// Definición de tasas de cambio
 const tasasDeCambio = {
     usd: 1,
     eur: 0.85,
     ars: 98.50,
 };
 
+// Función para convertir las monedas
 const convertidorDeMoneda = (cantidad, deMoneda, aMoneda) => {
-    // Convertir las monedas a minúsculas
     deMoneda = deMoneda.toLowerCase();
     aMoneda = aMoneda.toLowerCase();
 
-    // Condicional para verificar si las monedas son válidas
+    // Verificar si las monedas son válidas
     if (!tasasDeCambio[deMoneda] || !tasasDeCambio[aMoneda]) {
         return "Moneda inválida";
     }
-    // Conversión de moneda
+
     const cantidadConvertida = (cantidad / tasasDeCambio[deMoneda]) * tasasDeCambio[aMoneda];
     return cantidadConvertida.toFixed(2);
 };
 
-const simularConversionDeMoneda = () => {
-    // Ciclo para permitir múltiples conversiones
-    while (true) {
-        const cantidad = parseFloat(prompt("Ingrese la cantidad a convertir:"));
-        if (isNaN(cantidad)) {
-            alert("Por favor, ingrese una cantidad válida.");
-            continue;
-        }
-        const deMoneda = prompt("Ingrese la moneda de origen (USD, EUR, ARS):");
-        if (!deMoneda) {
-            alert("Por favor, ingrese una moneda de origen válida.");
-            continue;
-        }
-        const aMoneda = prompt("Ingrese la moneda de destino (USD, EUR, ARS):");
-        if (!aMoneda) {
-            alert("Por favor, ingrese una moneda de destino válida.");
-            continue;
-        }
+// Cargar historial de conversiones desde localStorage
+const cargarHistorial = () => {
+    const historial = JSON.parse(localStorage.getItem('historial')) || [];
+    const historialElement = document.getElementById('conversionHistory');
+    historialElement.innerHTML = '';
 
-        // Condicional para verificar si la cantidad es válida
-        if (isNaN(cantidad) || cantidad <= 0) {
-            alert("Por favor, ingrese una cantidad válida.");
-            continue;
-        }
+    historial.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = ${item.cantidad} ${item.deMoneda.toUpperCase()} = ${item.resultado} ${item.aMoneda.toUpperCase()};
+        historialElement.appendChild(li);
+    });
+};
 
-        const resultado = convertidorDeMoneda(cantidad, deMoneda, aMoneda);
-        alert(`Cantidad convertida: ${resultado} ${aMoneda}`);
+// Guardar historial en localStorage
+const guardarHistorial = (historial) => {
+    localStorage.setItem('historial', JSON.stringify(historial));
+};
 
-        // Preguntar al usuario si desea realizar otra conversión
-        const otraConversion = prompt("¿Desea realizar otra conversión? (si/no)").toLowerCase();
-        if (otraConversion !== 'si') {
-            break;
-        }
+// Manejo de eventos de formulario
+document.getElementById('convertForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const cantidad = parseFloat(document.getElementById('cantidad').value);
+    const deMoneda = document.getElementById('deMoneda').value;
+    const aMoneda = document.getElementById('aMoneda').value;
+
+    if (isNaN(cantidad) || cantidad <= 0) {
+        alert('Por favor, ingrese una cantidad válida.');
+        return;
     }
-};
 
-simularConversionDeMoneda();
-// Función para inicializar el simulador
-const iniciarSimulador = () => {
-    alert("Bienvenido al convertidor de moneda.");
-    simularConversionDeMoneda();
-};
+    const resultado = convertidorDeMoneda(cantidad, deMoneda, aMoneda);
+    
+    // Mostrar el resultado en la página
+    const conversionResult = document.getElementById('conversionResult');
+    conversionResult.textContent = Resultado: ${cantidad} ${deMoneda.toUpperCase()} = ${resultado} ${aMoneda.toUpperCase()};
+
+    // Guardar en historial
+    const historial = JSON.parse(localStorage.getItem('historial')) || [];
+    historial.push({
+        cantidad,
+        deMoneda,
+        aMoneda,
+        resultado,
+    });
+
+    guardarHistorial(historial);
+    cargarHistorial();
+});
+
+// Cargar historial al iniciar la página
+window.onload = cargarHistorial;
