@@ -1,11 +1,11 @@
-// Definición de tasas de cambio
+
 const tasasDeCambio = {
     usd: 1,
     eur: 0.85,
     ars: 98.50,
 };
 
-// Función para convertir las monedas
+
 const convertidorDeMoneda = (cantidad, deMoneda, aMoneda) => {
     deMoneda = deMoneda.toLowerCase();
     aMoneda = aMoneda.toLowerCase();
@@ -19,7 +19,7 @@ const convertidorDeMoneda = (cantidad, deMoneda, aMoneda) => {
     return cantidadConvertida.toFixed(2);
 };
 
-// Cargar historial de conversiones desde localStorage
+
 const cargarHistorial = () => {
     const historial = JSON.parse(localStorage.getItem('historial')) || [];
     const historialElement = document.getElementById('conversionHistory');
@@ -32,12 +32,12 @@ const cargarHistorial = () => {
     });
 };
 
-// Guardar historial en localStorage
+
 const guardarHistorial = (historial) => {
     localStorage.setItem('historial', JSON.stringify(historial));
 };
 
-// Manejo de eventos de formulario
+
 document.getElementById('convertForm').addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -45,7 +45,7 @@ document.getElementById('convertForm').addEventListener('submit', (e) => {
     const deMoneda = document.getElementById('deMoneda').value;
     const aMoneda = document.getElementById('aMoneda').value;
 
-    // Verificar si la cantidad es válida
+
     if (isNaN(cantidad) || cantidad <= 0) {
         // Mostrar mensaje de error en el DOM en lugar de usar alert
         const conversionResult = document.getElementById('conversionResult');
@@ -55,11 +55,8 @@ document.getElementById('convertForm').addEventListener('submit', (e) => {
 
     const resultado = convertidorDeMoneda(cantidad, deMoneda, aMoneda);
     
-    // Mostrar el resultado en la página
     const conversionResult = document.getElementById('conversionResult');
     conversionResult.textContent = `${cantidad} ${deMoneda.toUpperCase()} = ${resultado} ${aMoneda.toUpperCase()}`;
-
-    // Guardar en historial
     const historial = JSON.parse(localStorage.getItem('historial')) || [];
     historial.push({
         cantidad,
@@ -72,5 +69,5 @@ document.getElementById('convertForm').addEventListener('submit', (e) => {
     cargarHistorial();
 });
 
-// Cargar historial al iniciar la página
+
 window.onload = cargarHistorial;
