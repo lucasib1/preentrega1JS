@@ -9,8 +9,7 @@ const tasasDeCambio = {
 const convertidorDeMoneda = (cantidad, deMoneda, aMoneda) => {
     deMoneda = deMoneda.toLowerCase();
     aMoneda = aMoneda.toLowerCase();
-
-    // Verificar si las monedas son válidas
+    
     if (!tasasDeCambio[deMoneda] || !tasasDeCambio[aMoneda]) {
         return "Moneda inválida";
     }
@@ -47,7 +46,6 @@ document.getElementById('convertForm').addEventListener('submit', (e) => {
 
 
     if (isNaN(cantidad) || cantidad <= 0) {
-        // Mostrar mensaje de error en el DOM en lugar de usar alert
         const conversionResult = document.getElementById('conversionResult');
         conversionResult.textContent = 'Por favor, ingrese una cantidad válida.';
         return;
@@ -68,6 +66,13 @@ document.getElementById('convertForm').addEventListener('submit', (e) => {
     guardarHistorial(historial);
     cargarHistorial();
 });
+document.getElementById('borrarHistorial').addEventListener('click', () => {
+
+    localStorage.removeItem('historial');
+
+    cargarHistorial();
+});
+
 
 
 window.onload = cargarHistorial;
